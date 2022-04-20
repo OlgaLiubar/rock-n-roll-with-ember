@@ -1,0 +1,15 @@
+{{page-title "Bands"}}
+<div class="w-13 px-2">
+ <ul class="pl-2 pr-8">
+    {{#each @model as |band|}}
+      <li class="mb-2">
+        <LinkTo @route="bands.band.songs" @model={{band.id}}>
+          {{band.name}}
+        </LinkTo>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+<div class="w-23 px-2">
+  {{outlet}}
+</div>
