@@ -72,12 +72,12 @@ export default class CatalogService extends Service {
     let { id, type, attributes, relationships } = data;
     if (type === 'bands') {
       let rels = extractRelationships(relationships);
-      let record = new Band({ id, ...attributes }, rels);
+      record = new Band({ id, ...attributes }, rels);
       this.add('band', record);
     }
     if (type === 'songs') {
       let rels = extractRelationships(relationships);
-      let record = new Song({ id, ...attributes }, rels);
+      record = new Song({ id, ...attributes }, rels);
       this.add('song', record);
     }
     return record;
@@ -115,7 +115,10 @@ export default class CatalogService extends Service {
 
   add(type, record) {
     let collection = type === 'band' ? this.storage.bands : this.storage.songs;
-    collection.push(record);
+    let recordIds = collection.map((record) => record.id);
+    if (!recordIds.includes(record.id)) {
+      collection.push(record);
+    }
   }
 
   get bands() {
